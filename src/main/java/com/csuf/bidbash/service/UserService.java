@@ -11,13 +11,29 @@ public class UserService {
 
 	@Autowired
 	private UserRepo userRepo;
-	
-	
+
 	public User registerNewUser(User user) {
-		return userRepo.save(user);
+		User userDb = userRepo.save(user);
+		return userDb;
 	}
-	
+
+	public boolean checkIfEmailPresent(String emailId) {
+		int emailCount = userRepo.checkIfEmailIdPresent(emailId);
+		if (emailCount == 1)
+			return true;
+		return false;
+	}
+
 	public User getUserById(int userId) {
 		return userRepo.findById(userId).get();
+	}
+
+	public int nextUserId() {
+		int user_id = userRepo.findNextUserId();
+		return user_id + 1;
+	}
+
+	public User findUserByEmailAndPassword(String email, String Password) {
+		return userRepo.findUserByEmaiAndPassword(email, Password);
 	}
 }
