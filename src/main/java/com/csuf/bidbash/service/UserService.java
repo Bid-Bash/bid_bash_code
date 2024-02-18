@@ -25,11 +25,11 @@ public class UserService {
 	}
 
 	public User getUserById(int userId) {
-		return userRepo.findById(userId).get();
+		return userRepo.findById(userId).orElse(null);
 	}
 
 	public int nextUserId() {
-		int user_id = userRepo.findNextUserId();
+		int user_id = userRepo.findNextUserId().orElse(0);
 		return user_id + 1;
 	}
 
