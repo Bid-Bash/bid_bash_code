@@ -1,5 +1,7 @@
 package com.csuf.bidbash.repos;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,7 +15,7 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 	public int checkIfEmailIdPresent(String emailId);
 
 	@Query(value = "select user_id from user_db order by user_id desc limit 1", nativeQuery = true)
-	public Integer findNextUserId();
+	public Optional<Integer> findNextUserId();
 
 	@Query(value = "select * from user_db  where email = ?1 and password = ?2", nativeQuery = true)
 	public User findUserByEmaiAndPassword(String email, String password);
