@@ -1,40 +1,50 @@
 package com.csuf.bidbash.pojos;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Table(name = "product_db")
 @Entity
 public class Product {
-	
+
 	@Id
 	@Column(name = "product_id")
 	private int productId;
-	
-	@Column(name="owner_id")
+
+	@Column(name = "owner_id")
 	private int ownerId;
-	
-	@Column(name="product_title")
+
+	@Column(name = "product_title")
 	private String productTitle;
-	
-	@Column(name="product_desc")
+
+	@Column(name = "product_desc")
 	private String productDesc;
-	
-	@Column(name="price")
+
+	@Column(name = "price")
 	private int price;
-	
-	@Column(name="product_deadline")
+
+	@Column(name = "product_deadline")
 	private LocalDateTime productDeadline;
-	
-	@Column(name="media")
-	private String media;
-	
-	@Column(name="is_available")
+
+	@Column(name = "is_available")
 	private int isAvailable;
+	
+	@Transient
+	private List<String> fileUrls;
+
+	public List<String> getFileUrls() {
+		return fileUrls;
+	}
+
+	public void setFileUrls(List<String> fileUrls) {
+		this.fileUrls = fileUrls;
+	}
 
 	public int getProductId() {
 		return productId;
@@ -84,14 +94,6 @@ public class Product {
 		this.productDeadline = productDeadline;
 	}
 
-	public String getMedia() {
-		return media;
-	}
-
-	public void setMedia(String media) {
-		this.media = media;
-	}
-
 	public int getIsAvailable() {
 		return isAvailable;
 	}
@@ -104,8 +106,7 @@ public class Product {
 	public String toString() {
 		return "Product [productId=" + productId + ", ownerId=" + ownerId + ", productTitle=" + productTitle
 				+ ", productDesc=" + productDesc + ", price=" + price + ", productDeadline=" + productDeadline
-				+ ", media=" + media + ", isAvailable=" + isAvailable + "]";
+				+ ", isAvailable=" + isAvailable + "]";
 	}
 
-	
 }
