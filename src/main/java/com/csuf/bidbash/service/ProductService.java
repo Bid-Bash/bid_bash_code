@@ -10,6 +10,8 @@ import com.csuf.bidbash.pojos.Product;
 import com.csuf.bidbash.repos.ProductFileRepo;
 import com.csuf.bidbash.repos.ProductRepo;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ProductService {
 
@@ -22,6 +24,7 @@ public class ProductService {
 	public Product storeNewProduct(Product p) {
 		p.setProductDeadline(LocalDateTime.now());
 		p.setIsAvailable(1);
+		p.setCurrent_bid(0);
 		return productRepo.save(p);
 	}
 
@@ -37,5 +40,10 @@ public class ProductService {
 
 	public List<String> getFileForProduct(int productId) {
 		return pfRepo.getProductFilesByProductId(productId);
+	}
+	
+	@Transactional
+	public void updateBidAmount(int pid, int bidAmount) {
+		productRepo.updateBidAmount(pid, bidAmount);
 	}
 }

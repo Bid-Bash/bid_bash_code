@@ -35,6 +35,9 @@ public class Product {
 	@Column(name = "is_available")
 	private int isAvailable;
 	
+	@Column(name="current_bid")
+	private int current_bid;
+	
 	@Transient
 	private List<String> fileUrls;
 
@@ -100,6 +103,14 @@ public class Product {
 
 	public void setIsAvailable(int isAvailable) {
 		this.isAvailable = isAvailable;
+	}
+
+	public int getCurrent_bid() {
+		return current_bid;
+	}
+
+	public void setCurrent_bid(int current_bid) {
+		this.current_bid = current_bid;
 	}
 
 	@Override
