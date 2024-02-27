@@ -47,10 +47,6 @@ const RegisterPage = () => {
             setError(error.response.data)
             console.log(error)
         })
-
-        // Perform registration logic (e.g., API request)
-        // Replace this with your actual registration logic
-        //setSuccess('Registration successful');
     };
 
     return (
