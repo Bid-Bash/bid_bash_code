@@ -81,5 +81,12 @@ public class ProductController {
 
 		return new ResponseEntity<Object>(p, HttpStatus.OK);
 	}
+	
+	@GetMapping("/all-products")
+	public ResponseEntity<Object> getAllProductInfo(){
+		List<Object[]> list = productService.getAllProducts();
+		
+		return new ResponseEntity<Object>(list, HttpStatus.OK);
+	}
 
 }

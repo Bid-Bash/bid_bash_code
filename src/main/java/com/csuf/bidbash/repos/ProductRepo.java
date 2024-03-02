@@ -1,5 +1,6 @@
 package com.csuf.bidbash.repos;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,5 +19,8 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 	@Modifying
 	@Query(value = "update product_db set current_bid =?2 where product_id= ?1", nativeQuery = true)
 	public int updateBidAmount(int pId, int bidAmount);
+	
+	@Query(value = "select p.*, max(f.string_url) from product_db p inner join product_files f on p.product_id = f.product_id where p.is_available = 1 group by p.product_id", nativeQuery = true)
+	public List<Object[]> getAllProductAvailable();
 
 }
