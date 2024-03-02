@@ -41,9 +41,14 @@ public class ProductService {
 	public List<String> getFileForProduct(int productId) {
 		return pfRepo.getProductFilesByProductId(productId);
 	}
-	
+
 	@Transactional
 	public void updateBidAmount(int pid, int bidAmount) {
 		productRepo.updateBidAmount(pid, bidAmount);
+	}
+
+	public List<Object[]> getAllProducts() {
+
+		return productRepo.getAllProductAvailable();
 	}
 }
