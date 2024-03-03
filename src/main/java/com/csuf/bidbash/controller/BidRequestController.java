@@ -5,6 +5,8 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import com.csuf.bidbash.service.ProductService;
 
 @RestController
 @RequestMapping("/bid-request")
+@CrossOrigin(origins = "*")
 public class BidRequestController {
 	
 	@Autowired
@@ -24,6 +27,9 @@ public class BidRequestController {
 	
 	@Autowired
 	private BidRequestService bidRequestService;
+	
+	@Autowired
+	private SimpMessagingTemplate template;
 	
 	@PostMapping("/bid")
 	public ResponseEntity<Object> saveNewBidRequest(@RequestBody BidRequest request){
@@ -46,6 +52,9 @@ public class BidRequestController {
 			
 			productService.updateBidAmount(p.getProductId(), p.getCurrent_bid());
 			BidRequest newBid=bidRequestService.newBidRequest(request);
+			
+			template.convertAndSend("/topic/bid/"+newBid.getProductId(), newBid);
+			
 			return new ResponseEntity<Object>(newBid, HttpStatus.OK);
 		}
 		
