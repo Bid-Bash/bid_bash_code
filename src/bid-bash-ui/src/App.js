@@ -5,6 +5,7 @@ import LoginPage from './user/LoginPage';
 import RegisterPage from './user/RegisterPage';
 import AddProduct from './product/AddProduct';
 import ProductPage from './product/ProductPage';
+import SingleProductPage from './product/SingleProductPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/register' Component={RegisterPage}/>
           <Route path='/add-product' Component={AddProduct}/>
           <Route path='/all-products' Component={ProductPage}/>
+          <Route path='/product/:productId' Component={SingleProductPage}/>
         </Routes>
       </Router>
     </div>
