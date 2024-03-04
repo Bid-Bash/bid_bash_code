@@ -1,22 +1,25 @@
 import './ProductPage.css'
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Product = ({ product }) => {
-    return (
-        <div className="col-md-4 mb-4">
-          <div className="card">
-            <img src={product.fileUrls[0]} className="card-img-top"  style={{ height: '200px', width: '100%', objectFit: 'cover' }} alt={product.productTitle} />
-            <div className="card-body">
-              <h5 className="card-title">{product.productTitle}</h5>
-              <p className="card-text">{product.productDesc}</p>
-              <p className="card-text">Price: ${product.price}</p>
-              {product.isAvailable ? <p className="card-text">Available</p> : <p className="card-text">Not Available</p>}
-            </div>
-          </div>
+  return (
+    <div className="col-md-4 mb-4">
+      <div className="card" >
+        <Link to={`/product/${product.productId}`}>
+          <img src={product.fileUrls[0]} className="card-img-top" style={{ height: '200px', width: '100%', objectFit: 'cover' }} alt={product.productTitle} />
+        </Link>
+        <div className="card-body">
+          <h5 className="card-title">{product.productTitle}</h5>
+          <p className="card-text">{product.productDesc}</p>
+          <p className="card-text">Price: ${product.price}</p>
+          {product.isAvailable ? <p className="card-text">Available</p> : <p className="card-text">Not Available</p>}
         </div>
-      );
-    };
+      </div>
+    </div>
+  );
+};
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
