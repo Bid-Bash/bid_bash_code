@@ -11,14 +11,15 @@ import com.azure.storage.blob.BlobContainerClientBuilder;
 public class AzureStorageConfig {
 	
 
-	@Value("${AzureConnectionString}")
+	@Value("${spring.azure.connection-string}")
 	private String connectionString;
 	
-	@Value("${AzureContainerName}")
+	@Value("${spring.azure.container-name}")
 	private String containerName;
 
 	@Bean
 	public BlobContainerClient getClient() {
+		
 		return new BlobContainerClientBuilder().connectionString(connectionString).containerName(containerName)
 				.buildClient();
 	}
