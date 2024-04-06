@@ -37,6 +37,14 @@
 			<artifactId>aws-java-sdk-s3</artifactId>
 			<version>1.12.657</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.microsoft.azure/azure-storage-spring-boot-starter -->
+		<!-- https://mvnrepository.com/artifact/com.azure.spring/spring-cloud-azure-starter-storage-blob -->
+		<dependency>
+			<groupId>com.azure</groupId>
+			<artifactId>azure-storage-blob</artifactId>
+			<version>12.25.2</version>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket -->
 		<dependency>

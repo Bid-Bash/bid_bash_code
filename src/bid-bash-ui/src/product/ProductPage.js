@@ -5,11 +5,13 @@ import axios from 'axios';
 
 const Product = ({ product }) => {
   return (
-    <div className="col-md-4 mb-4">
+    <div className="col-md-4 mb-4 ">
       <div className="card" >
+        <div className='card_pos'>
         <Link to={`/product/${product.productId}`}>
           <img src={product.fileUrls[0]} className="card-img-top" style={{ height: '200px', width: '100%', objectFit: 'cover' }} alt={product.productTitle} />
         </Link>
+          </div> 
         <div className="card-body">
           <h5 className="card-title">{product.productTitle}</h5>
           <p className="card-text">{product.productDesc}</p>
@@ -50,7 +52,7 @@ const ProductPage = () => {
 
   return (
     <div className="product-page">
-      <h1>Product Showcase</h1>
+      <h3>Listed Items</h3>
       <div className="product-container">
         {products.map((product) => (
           <Product key={product.productId} product={product} />

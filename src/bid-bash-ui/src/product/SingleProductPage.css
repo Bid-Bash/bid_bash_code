@@ -1,0 +1,15 @@
+.carousel-control-next-icon{
+
+}
+button.carousel-control-next{
+    background: transparent;
+    border: none;
+}
+
+.visually-hidden{
+    color: black;
+}
+
+span.carousel-control-next-icon {
+    filter: invert(1);
+}

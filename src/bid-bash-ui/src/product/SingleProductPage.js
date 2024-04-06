@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
-
+import "./SingleProductPage.css"
 
 const SingleProductPage = (match) => {
     const { productId } = useParams();
@@ -115,8 +115,8 @@ const SingleProductPage = (match) => {
                             <span className="visually-hidden">Previous</span>
                         </button>
                         <button className="carousel-control-next" type="button" data-target="#carouselExampleIndicators" data-slide="next">
-                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
                             <span className="visually-hidden">Next</span>
+                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
                         </button>
                     </div>
                 </div>

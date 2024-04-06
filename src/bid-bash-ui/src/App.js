@@ -6,12 +6,14 @@ import RegisterPage from './user/RegisterPage';
 import AddProduct from './product/AddProduct';
 import ProductPage from './product/ProductPage';
 import SingleProductPage from './product/SingleProductPage';
+import Navbar from './utilities/Navbar';
+import React from 'react';
 
 function App() {
   return (
     <div className="App">
-      <h1>Bid-Bash</h1>
       <Router>
+        <Navbar/>
         <Routes>
           <Route path="/login" Component={LoginPage} />
           <Route path='/register' Component={RegisterPage}/>

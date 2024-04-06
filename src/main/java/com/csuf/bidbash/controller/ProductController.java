@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.csuf.bidbash.pojos.Product;
 import com.csuf.bidbash.pojos.User;
-import com.csuf.bidbash.service.AmazonService;
+import com.csuf.bidbash.service.AzureService;
 import com.csuf.bidbash.service.ProductService;
 import com.csuf.bidbash.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -35,9 +35,13 @@ public class ProductController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private AmazonService amazonService;
+//	@Autowired
+//	private AmazonService amazonService;
 
+	
+	@Autowired
+	private AzureService azureService;
+	
 	@RequestMapping(value = "/new-item", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE })
 	public ResponseEntity<Object> storeNewItem(@RequestParam(value = "file", required = false) MultipartFile[] file,
@@ -61,7 +65,7 @@ public class ProductController {
 		Product newProduct = productService.storeNewProduct(p);
 
 		try {
-			amazonService.uploadFiles(pId, file);
+			azureService.uploadFiles(pId, file);
 		} catch (Exception e) {
 			return new ResponseEntity<Object>("Some thing wrong with files", HttpStatus.NO_CONTENT);
 		}

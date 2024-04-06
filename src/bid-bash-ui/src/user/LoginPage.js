@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-
+  const navigate = useNavigate()
   const handleLogin = () => {
     const requestBody = {
       "email":username,
@@ -16,10 +17,16 @@ const LoginPage = () => {
     axios.post('http://localhost:8080/user/login',  requestBody).then(response=>{
       console.log("Login Succesful")
       const user = response.data;
+      //console.log(user)
+      localStorage.setItem("isLoggedIn", true)
+      localStorage.setItem("user", JSON.stringify(user));
+
       setSuccess(user.name + " Logged in successfully")
       setError('')
+      navigate('/all-products')
     }).catch(error=>{
       //console.log(error.resp)
+      console.log(error)
       if(error.response.status === 404)
         setSuccess('')
         setError(error.response.data)
