@@ -27,6 +27,10 @@ public class ProductService {
 		p.setCurrent_bid(0);
 		return productRepo.save(p);
 	}
+	
+	public Product updateProduct(Product p) {
+		return productRepo.save(p);
+	}
 
 	public int getNextProductId() {
 		int id = productRepo.getNextProductId().orElse(0);
@@ -48,7 +52,10 @@ public class ProductService {
 	}
 
 	public List<Object[]> getAllProducts() {
-
 		return productRepo.getAllProductAvailable();
+	}
+	
+	public List<Product> getUserProducts(int userId){
+		return productRepo.getAllProductsByOwnerId(userId);
 	}
 }

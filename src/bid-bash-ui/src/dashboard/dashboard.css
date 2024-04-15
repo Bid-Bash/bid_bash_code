@@ -1,0 +1,83 @@
+.sidebar {
+    width: 20%;
+    height: 100%; 
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+  }
+ 
+  .transactions{
+    width: 100%;
+  }
+
+.sidebar-item.selected {
+    font-weight: bold; 
+    background-color: white;
+}
+
+  .sidebar-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dashboard{
+    display: flex;
+    height: 75vh;
+  }
+ 
+  html{
+    overflow-y: scroll;
+  }
+
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    width: 100%; 
+    padding: 0 20px; 
+}
+
+.product-container-dashboard {
+    width: calc(33.33% - 20px); 
+    margin: 0 10px 20px;
+  
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-direction: row;
+    align-content: center;
+}
+
+.card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-body h5 {
+    margin: 0;
+}
+a{
+    width:  -webkit-fill-available;
+}
+
+.product-container-myBid{
+    width: -webkit-fill-available; 
+    /* margin: 0 10px 20px; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-content: space-around;
+    
+}

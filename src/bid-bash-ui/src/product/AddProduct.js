@@ -9,6 +9,8 @@ const AddProduct = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const fileInputRef = useRef(null)
+    const user = JSON.parse(localStorage.getItem("user"));
+
 
     const handleTitleChange = (e) => {
         setProductTitle(e.target.value);
@@ -47,7 +49,7 @@ const AddProduct = () => {
         }
 
         const product = {
-            "ownerId": 1,  //hard-code for now will change once flow started.
+            "ownerId": user.userId,
             "productTitle": productTitle,
             "productDesc": productDesc,
             "price": parseInt(price)

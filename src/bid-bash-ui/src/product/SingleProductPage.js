@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 import "./SingleProductPage.css"
@@ -11,15 +11,24 @@ const SingleProductPage = (match) => {
     const [bidAmount, setBidAmount] = useState(0);
     const [currentBid, setCurrentBid] = useState(0);
     const [stompClient, setStompClient] = useState(null);
+    const [isAvailable, setIsAvailable] = useState(true);
+    const user = JSON.parse(localStorage.getItem("user"));
+    const navigate = useNavigate()
 
 
     useEffect(() => {
+        
+        if (user == null) {
+            navigate("/login");
+        }
 
         const fetchProduct = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/product/${productId}`);
-                console.log(response)
                 setProduct(response.data);
+                if (response.data.isAvailable === 0) {
+                    setIsAvailable(false);
+                }
                 setCurrentBid(response.data.current_bid)
 
             } catch (error) {
@@ -32,29 +41,27 @@ const SingleProductPage = (match) => {
         const connectWebSocket = () => {
             const socket = new SockJS("http://localhost:8080/ws");
             const stompClient = Stomp.over(socket);
-    
+
             stompClient.connect({}, (con) => {
-                console.log("Connected", con);
                 setStompClient(stompClient);
             });
         };
-    
+
         const subscribeToBidTopic = () => {
             if (stompClient) {
                 stompClient.subscribe(`/topic/bid/${productId}`, (response) => {
                     const body = JSON.parse(response.body);
-                    console.log('Response Body:', body);
                     setCurrentBid(body.bidAmount);
                 });
             }
         };
-    
+
         if (!stompClient) {
             connectWebSocket();
         } else {
             subscribeToBidTopic();
         }
-    
+
         return () => {
             if (stompClient) {
                 stompClient.disconnect();
@@ -65,33 +72,28 @@ const SingleProductPage = (match) => {
 
     const handleBid = () => {
         const bidRequest = {
-            userId: 3,
+            userId: user.userId,
             productId: productId,
             bidAmount: bidAmount
         }
 
-        axios.post("http://localhost:8080/bid-request/bid", bidRequest).then((response)=>{
+        axios.post("http://localhost:8080/bid-request/bid", bidRequest).then((response) => {
             //console.log(response);
-        }).catch((error)=>{
+        }).catch((error) => {
             console.log(error);
         })
     };
 
-    // const connect = () =>{
-    //     const socket = new SockJS("http://localhost:8080/ws")
-    //     const stompClient = Stomp.over(socket);
+    const handleSale = () => {
 
-    //     stompClient.connect({},(con)=>{
-    //         //console.log("Connected", con);
-    //         stompClient.subscribe((`/topic/bid/${productId}`), (response)=>{
-    //             const body = JSON.parse(response.body);
-    //             console.log('Response Body:', body);
-    //             setCurrentBid(body.bidAmount);
-    //         })
-    //     })
-    // }
+        axios.post("http://localhost:8080/bid-request/sale", product).then((response) => {
+            console.log(response)
+        }).catch(error => {
+            console.log(error)
+        })
 
-    // connect();
+
+    }
 
     if (!product) {
         return <div>Loading...</div>;
@@ -131,14 +133,25 @@ const SingleProductPage = (match) => {
                             <p>Bidding Price: ${currentBid}</p>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-sm-6">
-                            <input type="number" className="form-control" id="bidAmount" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} />
+
+                    {isAvailable ?
+                        product.ownerId === user.userId ? (<div className="row">
+                            <div className='col'>
+                                <button className="btn btn-primary" onClick={handleSale} >Sale</button>
+                            </div>
+                        </div>) : <div className="row">
+                            <div className="col-sm-6">
+                                <input type="number" className="form-control" id="bidAmount" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} />
+                            </div>
+                            <div className="col-sm-6">
+                                <button className="btn btn-primary" onClick={handleBid}>Bid</button>
+                            </div>
                         </div>
-                        <div className="col-sm-6">
-                            <button className="btn btn-primary" onClick={handleBid}>Bid</button>
-                        </div>
-                    </div>
+                        : <div className='sold-item'>Item is Sold</div>}
+
+
+
+
                 </div>
 
             </div>

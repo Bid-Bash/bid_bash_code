@@ -8,6 +8,9 @@ import ProductPage from './product/ProductPage';
 import SingleProductPage from './product/SingleProductPage';
 import Navbar from './utilities/Navbar';
 import React from 'react';
+import Dashboard from './dashboard/dashboard';
+import Success from './stripePages/success';
+import Failure from './stripePages/failure';
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
           <Route path='/add-product' Component={AddProduct}/>
           <Route path='/all-products' Component={ProductPage}/>
           <Route path='/product/:productId' Component={SingleProductPage}/>
+          <Route path='/dashboard' Component={Dashboard}/>
+          <Route path="/success" Component={Success}/>
+          <Route path="/failure" Component={Failure}/>
         </Routes>
       </Router>
     </div>

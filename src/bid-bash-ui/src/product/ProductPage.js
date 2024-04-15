@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Product = ({ product }) => {
+export const Product = ({ product }) => {
   return (
     <div className="col-md-4 mb-4 ">
       <div className="card" >

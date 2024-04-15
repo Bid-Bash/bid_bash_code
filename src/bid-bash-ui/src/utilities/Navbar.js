@@ -57,7 +57,7 @@ const Navbar = () => {
                                 <Avatar size='large' sx={{bgcolor: 'black', width:70, height:70}} onClick = {toggleDropdown}>{user ? user.name[0] :  "S"}</Avatar>
                                 {isDropdownOpen && (
                                     <div className="dropdown-menu">
-                                        <Link to="/profile" className="dropdown-item">Profile</Link>
+                                        <Link to="/dashboard" className="dropdown-item">Account</Link>
                                         <button className="dropdown-item" onClick={handleLogout}>Logout</button>
                                     </div>
                                 )}

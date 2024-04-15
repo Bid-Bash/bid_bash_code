@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +23,7 @@ import com.csuf.bidbash.pojos.User;
 import com.csuf.bidbash.service.AzureService;
 import com.csuf.bidbash.service.ProductService;
 import com.csuf.bidbash.service.UserService;
+import com.csuf.bidbash.utils.ProductUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -35,13 +38,9 @@ public class ProductController {
 	@Autowired
 	private UserService userService;
 
-//	@Autowired
-//	private AmazonService amazonService;
-
-	
 	@Autowired
 	private AzureService azureService;
-	
+
 	@RequestMapping(value = "/new-item", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE })
 	public ResponseEntity<Object> storeNewItem(@RequestParam(value = "file", required = false) MultipartFile[] file,
@@ -54,7 +53,7 @@ public class ProductController {
 		} catch (JsonProcessingException e1) {
 			return new ResponseEntity<Object>("Product Is InCorrect", HttpStatus.BAD_REQUEST);
 		}
-		
+
 		User u = userService.getUserById(p.getOwnerId());
 		if (Objects.isNull(u)) {
 			return new ResponseEntity<Object>("User with id:" + p.getOwnerId() + " not found", HttpStatus.NOT_FOUND);
@@ -85,12 +84,21 @@ public class ProductController {
 
 		return new ResponseEntity<Object>(p, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all-products")
-	public ResponseEntity<Object> getAllProductInfo(){
+	public ResponseEntity<Object> getAllProductInfo() {
 		List<Object[]> list = productService.getAllProducts();
-		
+
 		return new ResponseEntity<Object>(list, HttpStatus.OK);
+	}
+
+	@PostMapping("/userItem")
+	public ResponseEntity<Object> getUserItems(@RequestBody ProductUtils productUtils) {
+		int userId = productUtils.ownerId;
+
+		List<Product> productList = productService.getUserProducts(userId);
+
+		return new ResponseEntity<Object>(productList, HttpStatus.OK);
 	}
 
 }
