@@ -22,7 +22,7 @@ public class BidRequest {
 	private int productId;
 	
 	@Column(name="bid_amount")
-	private int bidAmount;
+	private double bidAmount;
 	
 	@Column(name="time")
 	private LocalDateTime time;
@@ -51,11 +51,11 @@ public class BidRequest {
 		this.productId = productId;
 	}
 
-	public int getBidAmount() {
+	public double getBidAmount() {
 		return bidAmount;
 	}
 
-	public void setBidAmount(int bidAmount) {
+	public void setBidAmount(double bidAmount) {
 		this.bidAmount = bidAmount;
 	}
 

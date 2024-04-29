@@ -62,7 +62,7 @@ public class BidRequestController {
 
 			template.convertAndSend("/topic/bid/" + newBid.getProductId(), newBid);
 
-			return new ResponseEntity<Object>(newBid, HttpStatus.OK);
+			return new ResponseEntity<Object>("Bid Placed Successfully", HttpStatus.OK);
 		}
 
 	}

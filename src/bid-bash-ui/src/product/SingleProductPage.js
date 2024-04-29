@@ -12,12 +12,14 @@ const SingleProductPage = (match) => {
     const [currentBid, setCurrentBid] = useState(0);
     const [stompClient, setStompClient] = useState(null);
     const [isAvailable, setIsAvailable] = useState(true);
+    const [success, setSuccess] = useState(null);
+    const [error, setError] = useState(null);
     const user = JSON.parse(localStorage.getItem("user"));
     const navigate = useNavigate()
 
 
     useEffect(() => {
-        
+
         if (user == null) {
             navigate("/login");
         }
@@ -78,21 +80,21 @@ const SingleProductPage = (match) => {
         }
 
         axios.post("http://localhost:8080/bid-request/bid", bidRequest).then((response) => {
-            //console.log(response);
+            setSuccess(response.data)
+            setError(null)
+
         }).catch((error) => {
-            console.log(error);
+            setError(error.response.data)
+            setSuccess(null)
         })
     };
 
     const handleSale = () => {
-
         axios.post("http://localhost:8080/bid-request/sale", product).then((response) => {
             console.log(response)
         }).catch(error => {
             console.log(error)
         })
-
-
     }
 
     if (!product) {
@@ -141,13 +143,17 @@ const SingleProductPage = (match) => {
                             </div>
                         </div>) : <div className="row">
                             <div className="col-sm-6">
-                                <input type="number" className="form-control" id="bidAmount" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} />
+                                <input type="number" step="0.01" className="form-control" id="bidAmount" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} />
                             </div>
                             <div className="col-sm-6">
                                 <button className="btn btn-primary" onClick={handleBid}>Bid</button>
                             </div>
                         </div>
                         : <div className='sold-item'>Item is Sold</div>}
+
+
+                    {error && <div className="alert alert-danger">{error}</div>}
+                    {success && <div className="alert alert-success">{success}</div>}
 
 
 

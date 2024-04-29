@@ -47,7 +47,7 @@ public class ProductService {
 	}
 
 	@Transactional
-	public void updateBidAmount(int pid, int bidAmount) {
+	public void updateBidAmount(int pid, double bidAmount) {
 		productRepo.updateBidAmount(pid, bidAmount);
 	}
 

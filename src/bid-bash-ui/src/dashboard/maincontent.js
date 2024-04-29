@@ -39,7 +39,8 @@ const MainContent = ({ selectedSection }) => {
                 productId:obj[2],
                 isPaid: obj[3] != null ? true : false,
                 saleId: obj[4],
-                tra:obj[3]
+                tra:obj[3],
+                time: new Date(obj[5])
             }))
 
             console.log(tr);
@@ -84,7 +85,7 @@ const MainContent = ({ selectedSection }) => {
                         {pendingTransaction.length > 0 ? <div> <h5>Pending Transactions</h5>
                         <TransactionTable transactions={pendingTransaction} type="pending" /> </div>: null}
                         
-                        {successTransaction.length > 0 ?  <div><h5>Success Transactions</h5>
+                        {successTransaction.length > 0 ?  <div><h5>Items Bought</h5>
                         <TransactionTable transactions={successTransaction} type="success" /> </div> :null}
                         
                       </div>) 

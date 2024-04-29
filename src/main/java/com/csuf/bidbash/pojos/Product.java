@@ -27,7 +27,7 @@ public class Product {
 	private String productDesc;
 
 	@Column(name = "price")
-	private int price;
+	private double price;
 
 	@Column(name = "product_deadline")
 	private LocalDateTime productDeadline;
@@ -36,7 +36,7 @@ public class Product {
 	private int isAvailable;
 	
 	@Column(name="current_bid")
-	private int current_bid;
+	private double current_bid;
 	
 	@Transient
 	private List<String> fileUrls;
@@ -81,11 +81,11 @@ public class Product {
 		this.productDesc = productDesc;
 	}
 
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -105,11 +105,11 @@ public class Product {
 		this.isAvailable = isAvailable;
 	}
 
-	public int getCurrent_bid() {
+	public double getCurrent_bid() {
 		return current_bid;
 	}
 
-	public void setCurrent_bid(int current_bid) {
+	public void setCurrent_bid(double current_bid) {
 		this.current_bid = current_bid;
 	}
 

@@ -31,7 +31,7 @@ const TransactionTable = ({ transactions, type }) => {
             <th>Product Name</th>
             <th>Price</th>
             <th>Status</th>
-            <th>Action</th>
+            <th>Action/Date</th>
           </tr>
         </thead>
         <tbody>
@@ -40,7 +40,7 @@ const TransactionTable = ({ transactions, type }) => {
              <Link to={`/product/${transaction.productId}`}><td>{transaction.productName}</td></Link>
               <td>${transaction.price}</td>
               <td>{type === 'pending' ? 'Pending' : 'Success'}</td>
-              {type === "pending" ? (<td> <Button onClick={() => processPayment(transaction)} >Pay</Button> </td>) : <td>{transaction.tra}</td>  } 
+              {type === "pending" ? (<td> <Button onClick={() => processPayment(transaction)} >Pay</Button> </td>) : <td>{`${transaction.time.getMonth() + 1}/${transaction.time.getDate()}/${transaction.time.getFullYear()} ${transaction.time.getHours()}:${transaction.time.getMinutes()}`}</td>  } 
             </tr>
           ))}
         </tbody>

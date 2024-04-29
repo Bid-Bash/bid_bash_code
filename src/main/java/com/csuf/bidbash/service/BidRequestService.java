@@ -2,7 +2,6 @@ package com.csuf.bidbash.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +34,9 @@ public class BidRequestService {
 	public List<Object> getAllUserBids(int userId){
 		return bidRequestRepo.getUserBids(userId);
 	}
+	
+	
+	
+	
 
 }

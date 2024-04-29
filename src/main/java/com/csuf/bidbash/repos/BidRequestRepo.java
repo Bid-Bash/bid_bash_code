@@ -18,12 +18,14 @@ public interface BidRequestRepo extends JpaRepository<BidRequest, Integer> {
 	@Query(value = "select * from auction_request_db re where re.product_id = ?1 order by request_id desc limit 1", nativeQuery = true)
 	public BidRequest getBidRequest(int productId);
 
-	@Query(value = "select re.product_id, pr.product_title, "
-			+ "pr.product_desc, pr.is_available, "
-			+ "max(re.bid_amount) from auction_request_db re "
-			+ "inner join product_db pr "
-			+ "on pr.product_id = re.product_id "
-			+ "where re.user_id =?1 "
+	@Query(value = "select re.product_id, pr.product_title, " + "pr.product_desc, pr.is_available, "
+			+ "max(re.bid_amount) from auction_request_db re " + "inner join product_db pr "
+			+ "on pr.product_id = re.product_id " + "where re.user_id =?1 "
 			+ "group by re.product_id", nativeQuery = true)
 	public List<Object> getUserBids(int userId);
+
+	@Query(value = "select ud.name, ar.bid_amount from auction_request_db ar "
+			+ "inner join user_db ud on ar.user_id = ud.user_id "
+			+ "where request_id = ?1", nativeQuery = true)
+	public Object getDetailsforEmail(int auctionRequestId);
 }

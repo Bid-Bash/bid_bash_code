@@ -12,7 +12,7 @@ public class ProductUtils {
 	
 	public String productName;
 	
-	public int price;
+	public double price;
 	
 	public String userName;
 	

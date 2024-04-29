@@ -18,7 +18,7 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 	
 	@Modifying
 	@Query(value = "update product_db set current_bid =?2 where product_id= ?1", nativeQuery = true)
-	public int updateBidAmount(int pId, int bidAmount);
+	public int updateBidAmount(int pId, double bidAmount);
 	
 	@Query(value = "select p.*, max(f.string_url) from product_db p inner join product_files f on p.product_id = f.product_id where p.is_available = 1 group by p.product_id order by p.product_id desc", nativeQuery = true)
 	public List<Object[]> getAllProductAvailable();

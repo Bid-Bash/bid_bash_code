@@ -52,7 +52,7 @@ const AddProduct = () => {
             "ownerId": user.userId,
             "productTitle": productTitle,
             "productDesc": productDesc,
-            "price": parseInt(price)
+            "price": price
         }
 
         let formData = new FormData();
@@ -65,13 +65,15 @@ const AddProduct = () => {
 
         axios.post("http://localhost:8080/product/new-item", formData)
         .then(response => {
+            console.log(response)
             setError('')
             setSuccess('Product Register Sucessfully')
             makeAllStatesEmpty()
         })
         .catch(error => {
-            setError(error.response.data)
-            setSuccess('')
+            console.log(error)
+            //setError(error.response.data)
+            //setSuccess('')
         });
     };
 
@@ -89,7 +91,7 @@ const AddProduct = () => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="price" className="form-label">Price:</label>
-                    <input type="number" className="form-control" id="price" value={price} onChange={handlePriceChange} />
+                    <input type="number" step="0.01" className="form-control" id="price" value={price} onChange={handlePriceChange} />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="images" className="form-label">Images:</label>

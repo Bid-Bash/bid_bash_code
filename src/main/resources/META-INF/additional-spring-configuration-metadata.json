@@ -18,5 +18,10 @@
     "name": "spring.stripe.webhook",
     "type": "java.lang.String",
     "description": "A description for 'spring.stripe.webhook'"
+  },
+  {
+    "name": "spring.dev.tempmail",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.dev.tempmail'"
   }
 ]}

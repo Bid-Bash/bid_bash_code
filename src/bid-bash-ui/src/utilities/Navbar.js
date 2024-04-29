@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -22,7 +22,7 @@ const Navbar = () => {
         setIsLoggedIn(localStorage.getItem("isLoggedIn"));
         setUser(JSON.parse(localStorage.getItem("user")));
     }, [location, isLoggedIn]);
-    
+
     const handleLogout = () => {
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('user');
@@ -30,22 +30,25 @@ const Navbar = () => {
         setIsDropdownOpen(false);
         setIsLoggedIn(false)
         setUser(null);
-        navigate('/', {replace: true})
+        navigate('/', { replace: true })
         //window.location.reload(true);
     };
 
-    
+
     //console.log("Navbar",user)
     return (
         <nav className="navbar">
             <div className="navbar-brand">
-                <img className='img-logo' src='logo-black.png' alt='logo'/>
+                <img className='img-logo' src='https://bidbashstorage.blob.core.windows.net/bidbash-container/logo-black.png' alt='logo' />
                 {/* <Button size='large' sx={{color: "black"}} href = "/all-products">Bid - Bash</Button> */}
             </div>
             <div className="navbar-nav m-auto">
                 <ul>
                     <li className="nav-item">
-                        <Button size='large' sx={{color: "black"}} href = "/all-products">All Products</Button>
+                        <Button size='large' sx={{ color: "black" }} href="/all-products">All Products</Button>
+                    </li>
+                    <li className="nav-item" style={{ display: 'inline-block' }}>
+                        <Button size='large' sx={{ color: "black" }} href="/add-product">Add Product</Button>
                     </li>
                 </ul>
             </div>
@@ -54,7 +57,7 @@ const Navbar = () => {
                     {isLoggedIn ? (
                         <li className="nav-item">
                             <div className="profile-dropdown">
-                                <Avatar size='large' sx={{bgcolor: 'black', width:70, height:70}} onClick = {toggleDropdown}>{user ? user.name[0] :  "S"}</Avatar>
+                                <Avatar size='large' sx={{ bgcolor: 'black', width: 70, height: 70 }} onClick={toggleDropdown}>{user ? user.name[0] : "S"}</Avatar>
                                 {isDropdownOpen && (
                                     <div className="dropdown-menu">
                                         <Link to="/dashboard" className="dropdown-item">Account</Link>
@@ -65,7 +68,7 @@ const Navbar = () => {
                         </li>
                     ) : (
                         <li className="nav-item">
-                            <Link to={{ pathname: '/login', state: {setIsLoggedIn} }} className="btn btn-primary">Login</Link>
+                            <Link to={{ pathname: '/login', state: { setIsLoggedIn } }} className="btn btn-primary">Login</Link>
                         </li>
                     )}
                 </ul>
