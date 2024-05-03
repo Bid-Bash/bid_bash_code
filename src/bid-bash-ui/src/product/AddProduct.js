@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
     const [productTitle, setProductTitle] = useState('');
@@ -10,7 +11,14 @@ const AddProduct = () => {
     const [success, setSuccess] = useState('');
     const fileInputRef = useRef(null)
     const user = JSON.parse(localStorage.getItem("user"));
+    const navigate = useNavigate()
 
+    useEffect(()=>{
+        if (user == null) {
+            navigate("/login");
+        }
+    })
+    
 
     const handleTitleChange = (e) => {
         setProductTitle(e.target.value);

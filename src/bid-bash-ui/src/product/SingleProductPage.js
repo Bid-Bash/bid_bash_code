@@ -91,9 +91,12 @@ const SingleProductPage = (match) => {
 
     const handleSale = () => {
         axios.post("http://localhost:8080/bid-request/sale", product).then((response) => {
-            console.log(response)
+            setSuccess(response.data)
+            setError(null)
+            setIsAvailable(false);
         }).catch(error => {
-            console.log(error)
+            setError(error.response.data)
+            setSuccess(null)
         })
     }
 
