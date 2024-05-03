@@ -48,6 +48,10 @@ public class BidRequestController {
 			if (p.getOwnerId() == request.getUserId()) {
 				return new ResponseEntity<Object>("You cannot bid for your own product", HttpStatus.NOT_ACCEPTABLE);
 			}
+			
+			if(p.getIsAvailable() == 0) {
+				return new ResponseEntity<Object>("This item is already Sold, you cannot bid!!", HttpStatus.NOT_ACCEPTABLE);
+			}
 
 			if (request.getBidAmount() <= p.getCurrent_bid()) {
 				return new ResponseEntity<Object>("Bid Value is small than current bid", HttpStatus.NOT_ACCEPTABLE);
@@ -81,13 +85,16 @@ public class BidRequestController {
 		auctionSale.setSaleId(saleId);
 		auctionSale.setAuctionRequestId(bidRequest.getRequestId());
 
-		AuctionSale newSale = auctionSaleService.sale(auctionSale);
+		auctionSaleService.sale(auctionSale);
 
 		Product oldProduct = productService.getProductDetails(product.productId);
+		if(oldProduct.getIsAvailable() == 0) {
+			return new ResponseEntity<Object>("Item is not Available for Sale", HttpStatus.NOT_ACCEPTABLE);
+		}
 		oldProduct.setIsAvailable(0);
 		productService.updateProduct(oldProduct);
 
-		return new ResponseEntity<Object>(newSale, HttpStatus.OK);
+		return new ResponseEntity<Object>("Sale Product Successfully", HttpStatus.OK);
 	}
 
 	@PostMapping("/bidByUser")

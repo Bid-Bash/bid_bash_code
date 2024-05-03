@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -25,12 +25,12 @@ const LoginPage = () => {
       setError('')
       navigate('/all-products')
     }).catch(error=>{
-      //console.log(error.resp)
+      
       console.log(error)
       if(error.response.status === 404)
         setSuccess('')
         setError(error.response.data)
-      //setError(error)
+      
     })
   };
 
@@ -55,6 +55,7 @@ const LoginPage = () => {
                             {error && <div className="alert alert-danger">{error}</div>}
                             {success && <div className="alert alert-success">{success}</div>}
                             <button type="button" className="btn btn-primary btn-block" onClick={handleLogin}>Login</button>
+                            <p className="mt-3 text-center">Don't have an account? <Link to="/register">Register here</Link></p>
                         </form>
                     </div>
                 </div>

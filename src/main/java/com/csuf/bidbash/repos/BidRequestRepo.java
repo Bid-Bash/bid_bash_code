@@ -21,7 +21,7 @@ public interface BidRequestRepo extends JpaRepository<BidRequest, Integer> {
 	@Query(value = "select re.product_id, pr.product_title, " + "pr.product_desc, pr.is_available, "
 			+ "max(re.bid_amount) from auction_request_db re " + "inner join product_db pr "
 			+ "on pr.product_id = re.product_id " + "where re.user_id =?1 "
-			+ "group by re.product_id", nativeQuery = true)
+			+ "group by re.product_id order by re.product_id desc", nativeQuery = true)
 	public List<Object> getUserBids(int userId);
 
 	@Query(value = "select ud.name, ar.bid_amount from auction_request_db ar "

@@ -26,6 +26,7 @@ function App() {
           <Route path='/dashboard' Component={Dashboard}/>
           <Route path="/success" Component={Success}/>
           <Route path="/failure" Component={Failure}/>
+          <Route exact path='/' Component={ProductPage}/>
         </Routes>
       </Router>
     </div>
