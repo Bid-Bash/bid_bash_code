@@ -32,7 +32,7 @@ To run the Bid Bash E-auction web application locally, follow these steps:
 
 ## Contributing
 
-We welcome contributions from the community to enhance the Bid Bash E-auction platform. If you have any ideas, suggestions, or bug fixes, feel free to submit a pull request or open an issue on GitHub.
+I welcome contributions from the community to enhance the Bid Bash E-auction platform. If you have any ideas, suggestions, or bug fixes, feel free to submit a pull request or open an issue on GitHub.
 
 ## License
 
